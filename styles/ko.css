@@ -1,0 +1,42 @@
+#mission-slide svg {
+    display: block;
+    margin: 0 auto;
+}
+
+#mission-slide svg circle, #mission-slide svg line {
+    stroke-width: 3px;
+}
+
+.circle {
+    overflow: hidden;
+}
+
+.circle svg {
+    width: 200px;
+    height: 200px;
+    float: left;
+}
+
+.circle svg circle {
+    stroke-width: 3px;
+}
+
+.circle .controls {
+    float: left;
+}
+
+.circle .controls input[type="range"] {
+    background-color: transparent;
+}
+
+.code-left {
+    width: 44%;
+    float: left;
+}
+
+.code-right {
+    width: 44%;
+    float: right;
+}
+
+

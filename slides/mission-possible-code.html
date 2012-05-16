@@ -1,0 +1,38 @@
+<header>Миссия выполнима</header>
+<section>
+    <pre class="code-left">
+<small>
+var
+  circle = document.getElementById('circle'),
+  radiusField = document.getElementById('radius'),
+  colorField = document.getElementById('color');
+</small>
+function randomizeColor() {
+  var c = random_color();
+  circle.setAttribute('stroke', c);
+  colorField.value = c;
+}
+
+radiusField.onchange = function () {
+  var radius = radiusField.value;
+  circle.setAttribute('r', radius);
+}
+
+colorField.onchange = function () {
+  var c = colorField.value;
+  circle.setAttribute('stroke', c);
+}
+</pre>
+<pre class="code-right">
+&lt;svg&gt;
+  &lt;circle
+    id="circle"
+    cx="105"
+    cy="105"
+    r="50"
+    stroke="red"
+    fill="transparent"
+    onclick="randomizeColor()" /&gt;
+&lt;/svg&gt;
+        </pre>
+</section>
