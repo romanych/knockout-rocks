@@ -1,0 +1,43 @@
+<header>MVVM</header>
+<section>
+  <div style="float: left;">
+    <img src="src/mvvm.jpg" alt="MVVM"/>
+
+
+    <h2>ViewModel</h2>
+    <ul class="bullets small">
+      <li>Radius</li>
+      <li>Color</li>
+      <li>SetRandomColor</li>
+    </ul>
+  </div>
+  <div style="float: right; margin-right: 50px;">
+    <h2>View</h2>
+    <pre class="prettyprint">
+&lt;svg&gt;
+  &lt;circle
+    cx="105"
+    cy="105"
+    r="<b>ViewModel.Radius</b>"
+    onclick="<b>ViewModel.SetRandomColor</b>"
+    onresize="<b>ViewModel.Radius</b>"
+    stroke="red"
+    fill="transparent" /&gt;
+&lt;/svg&gt;
+
+Radius:
+&lt;input type="range"
+  min="10" max="100"
+  step="1"
+  value="<b>ViewModel.Radius</b>"/&gt;
+
+Color:
+&lt;input type="text"
+  value="<b>ViewModel.Color</b>"/&gt;
+
+Radius is
+  &lt;label&gt;<b>ViewModel.Radius</b> + 'px'&lt;/label&gt;
+</pre>
+    </pre>
+  </div>
+</section>

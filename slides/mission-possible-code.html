@@ -1,17 +1,12 @@
 <header>Миссия выполнима</header>
 <section>
-    <pre class="code-left">
+    <pre class="code-left" class="prettyprint">
 <small>
 var
   circle = document.getElementById('circle'),
   radiusField = document.getElementById('radius'),
   colorField = document.getElementById('color');
 </small>
-function randomizeColor() {
-  var c = random_color();
-  circle.setAttribute('stroke', c);
-  colorField.value = c;
-}
 
 radiusField.onchange = function () {
   var radius = radiusField.value;
@@ -31,8 +26,17 @@ colorField.onchange = function () {
     cy="105"
     r="50"
     stroke="red"
-    fill="transparent"
-    onclick="randomizeColor()" /&gt;
+    fill="transparent" /&gt;
 &lt;/svg&gt;
-        </pre>
+  
+Radius:
+&lt;input type="range"
+  min="10" max="100"
+  step="1" id="radius"
+  value="50"/&gt;
+
+Color:
+&lt;input type="text"
+  id="color" value="red"/&gt;
+</pre>
 </section>

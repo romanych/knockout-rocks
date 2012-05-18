@@ -1,10 +1,10 @@
-#mission-slide svg {
+#mission svg {
     display: block;
     margin: 0 auto;
 }
 
-#mission-slide svg circle, #mission-slide svg line {
-    stroke-width: 3px;
+#mission svg circle, #mission svg line {
+    stroke-width: 5px;
 }
 
 .circle {
@@ -12,13 +12,13 @@
 }
 
 .circle svg {
-    width: 200px;
-    height: 200px;
+    width: 210px;
+    height: 210px;
     float: left;
 }
 
 .circle svg circle {
-    stroke-width: 3px;
+    stroke-width: 5px;
 }
 
 .circle .controls {
@@ -38,5 +38,3 @@
     width: 44%;
     float: right;
 }
-
-

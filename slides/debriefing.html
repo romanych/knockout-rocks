@@ -1,0 +1,52 @@
+<header>Разбор полётов</header>
+<section>
+    <pre class="code-left" class="prettyprint">
+radiusField.onchange = function () {
+  var r = radiusField.value;
+  circle.setAttribute('r', r);
+  <b>radiusLabel.innerHTML = r + 'px';</b>
+}
+
+colorField.onchange = function () {
+  var color = colorField.value;
+  circle.setAttribute('stroke', color);
+}
+<b>
+circle.onresize = function (r) {
+  radiusField.value = r;
+  radiusLabel.innerHTML = r + 'px';
+};
+
+circle.onclick = function() {
+  var c = random_color();
+  circle.setAttribute('stroke', c);
+  colorField.value = c;
+}
+</b>
+</pre>
+<pre class="code-right prettyprint">
+&lt;svg&gt;
+  &lt;circle
+    id="circle"
+    cx="105"
+    cy="105"
+    r="50"
+    stroke="red"
+    fill="transparent" /&gt;
+&lt;/svg&gt;
+
+Radius:
+&lt;input type="range"
+  min="10" max="100"
+  step="1" id="radius"
+  value="50"/&gt;
+
+Color:
+&lt;input type="text"
+  id="color" value="red"/&gt;
+
+Radius is
+  &lt;label id="radiusLabel"&gt;50px&lt;/label&gt;
+</pre>
+
+</section>

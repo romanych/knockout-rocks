@@ -8,8 +8,7 @@
               cy="105"
               r="50"
               stroke="red"
-              fill="transparent"
-              onclick="randomizeColor();"/>
+              fill="transparent"/>
     </svg>
     <div class="controls">
       Radius:
@@ -30,12 +29,6 @@
     var circle = document.getElementById('circle'),
             radiusField = document.getElementById('radius'),
             colorField = document.getElementById('color');
-
-    window.randomizeColor = function () {
-      var c = random_color();
-      circle.setAttribute('stroke', c);
-      colorField.value = c;
-    }
 
     radiusField.onchange = function () {
       var radius = radiusField.value;

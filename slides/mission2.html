@@ -1,0 +1,64 @@
+<header>Миссия выполнима 2</header>
+<section>
+
+  <div class="circle">
+    <svg>
+      <circle
+              id="circle2"
+              cx="105"
+              cy="105"
+              r="50"
+              stroke="red"
+              fill="transparent"/>
+    </svg>
+    <div class="controls">
+      Radius:
+      <input type="range" min="10" max="100" step="1" id="radius2" value="50"/><br/>
+      Color:
+      <input type="text" id="color2" value="red"/><br/>
+      Radius is <label id="radiusLabel2">50px</label>
+    </div>
+  </div>
+  <ul class="bullets">
+    <li>Нажатие на окружность должно задавать случайный цвет</li>
+    <li>Возможность ресайзить окружность мышкой</li>
+    <li>Добавить надпись с радиусом в пикселях</li>
+  </ul>
+</section>
+
+<script defer>
+  function random_color() {
+    var rint = Math.round(0xffffff * Math.random());
+    return ('#0' + rint.toString(16)).replace(/^#0([0-9a-f]{6})$/i, '#$1');
+  }
+
+  (function () {
+    var circle = document.getElementById('circle2'),
+            radiusField = document.getElementById('radius2'),
+            colorField = document.getElementById('color2'),
+            radiusLabel = document.getElementById('radiusLabel2');
+
+    radiusField.onchange = function () {
+      var radius = radiusField.value;
+      circle.setAttribute('r', radius);
+      radiusLabel.innerHTML = radius + 'px';
+    }
+
+    colorField.onchange = function () {
+      var color = colorField.value;
+      circle.setAttribute('stroke', color);
+    }
+
+    circle.onresize = function (r) {
+      radiusField.value = r;
+      radiusLabel.innerHTML = r + 'px';
+    };
+
+    circle.onclick = function() {
+      var c = random_color();
+      circle.setAttribute('stroke', c);
+      colorField.value = c;
+    }
+
+  })();
+</script>

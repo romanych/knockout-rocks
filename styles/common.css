@@ -118,6 +118,9 @@ pre input[type="range"] {
   cursor: pointer;
   width: auto;
 }
+.bullets.small {
+    font-size: 25px;
+}
 .bullets {
   font-size: 40px;
 }
@@ -141,9 +144,6 @@ input {
   margin-right: 10px;
   font-family: Helvetica;
   padding: 3px 5px;
-}
-input[type="range"] {
-  width: 100%;
 }
 div.example {
   display: block;

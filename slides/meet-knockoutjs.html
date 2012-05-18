@@ -1,0 +1,70 @@
+<header>Встречаем KnockoutJS</header>
+<section>
+  <div class="circle">
+    <svg>
+      <circle
+              cx="105"
+              cy="105"
+              fill="transparent"
+              data-bind="
+                    attr: {
+                        r: radius,
+                        stroke: color
+                        },
+                        click: randomizeColor
+                    "
+              />
+    </svg>
+    <div class="controls">
+      Radius:
+      <input type="range" min="10" max="100" step="1" data-bind="value: radius"/><br/>
+      Color:
+      <input type="text" data-bind="value: color"/><br/>
+      <br/>
+      Radius is <label data-bind="text: radius() + 'px'"></label>
+    </div>
+  </div>
+<pre class="code-left prettyprint" style="width: 40%;">
+var viewModel = {
+  radius : ko.observable(50),
+  color : ko.observable('red'),
+  randomizeColor : function () {
+    self.color(random_color());
+  }
+};
+
+ko.applyBindings(viewModel);
+</pre>
+<pre class="code-right prettyprint" style="width: 48%;">
+&lt;circle cx="105"cy="105" fill="transparent"
+  <b>data-bind="
+    attr: {
+        r: radius,
+        stroke: color
+    },
+    click: randomizeColor"</b>/&gt;
+
+Radius:
+&lt;input type="range" min="10" max="100"
+  step="1" data-bind="value: radius"/&gt;
+Color:
+&lt;input type="text" <b>data-bind="value: color"</b>/&gt;
+Radius is
+&lt;label data-bind="text: radius()+'px'"&gt;&lt;/label&gt;
+</pre>
+</section>
+<script defer>
+  (function () {
+    var ViewModel = function () {
+      var self = this;
+      self.radius = ko.observable(50);
+      self.color = ko.observable('red');
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      }
+    };
+
+    ko.applyBindings(new ViewModel(), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

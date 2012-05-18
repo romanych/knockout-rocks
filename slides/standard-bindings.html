@@ -1,0 +1,77 @@
+<header>Bindings</header>
+<section>
+  <div class="circle">
+    <svg>
+      <text data-bind="text: name" x="10" y="20"/>
+      <circle
+              cx="105"
+              cy="105"
+              fill="transparent"
+              data-bind="
+                    attr: {
+                        r: radius,
+                        stroke: color
+                        },
+                         style: {
+                        'stroke-dasharray': dash
+                        },
+                        click: randomizeColor
+                    "
+              />
+    </svg>
+    <div class="controls">
+      Name:
+      <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown'"/><br/>
+      <pre class="prettyprint">
+&lt;input type="text"
+  data-bind="value: name, <b>valueUpdate: 'afterkeydown'</b>"/&gt;
+</pre>
+
+      Radius:
+      <input type="range" min="10" max="100" step="1" data-bind="value: radius"/>
+      <label data-bind="text: radius() + 'px'"></label>
+      <pre class="prettyprint">
+&lt;label data-bind="text: radius() + 'px'"&gt;&lt;/label&gt;
+</pre>
+      Color:
+      <input type="text" data-bind="value: color"/><br/>
+      Dash: <select data-bind="value: dash, options: [2, 4, 6, 8], optionsCaption: 'No dashes'"></select>
+        <pre class="prettyprint">
+&lt;select data-bind="
+          value: dash,
+          options: [2, 4, 6, 8],
+          optionsCaption: 'No dashes'"&gt;&lt;/select&gt;
+</pre>
+      <br/>
+      <label><input type="checkbox" data-bind="checked: showHelp"/>Show help</label>
+
+      <div data-bind="visible: showHelp">
+        Change name, radius or color in corresponding fields<br/>
+        Click on circle to set random color. Also you could just resize it!
+      </div>
+      <pre class="prettyprint">
+&lt;input type="checkbox" data-bind="checked: showHelp"/&gt;
+&lt;div data-bind="visible: showHelp"&gt;Help text&lt;/div&gt;
+</pre>
+
+    </div>
+  </div>
+</section>
+<script defer>
+  (function () {
+    var ViewModel = function (name) {
+      var self = this;
+      self.name = ko.observable(name);
+      self.radius = ko.observable(50);
+      self.color = ko.observable('red');
+      self.showHelp = ko.observable(true);
+      self.dash = ko.observable();
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      }
+    };
+
+    ko.applyBindings(new ViewModel('Best interactive circle'), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

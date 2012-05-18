@@ -5,12 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"/>
   <title>KnockoutJS presentation</title>
   <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css"/>
-  <link id="prettify-link" href="src/prettify/prettify.css" rel="stylesheet" disabled/>
+  <link id="prettify-link" href="src/prettify/prettify.css" rel="stylesheet"/>
   <link href="styles/fonts.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/presentation.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/common.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/ko.css" rel="stylesheet" type="text/css" media="screen"/>
+  <script src="scripts/knockout-latest.js"></script>
 </head>
 <body>
 <div id="flex-container">
@@ -35,7 +36,16 @@
             'mission',
             'mission-possible',
             'mission-possible-code',
-            'mission2');
+            'mission2',
+            'debriefing',
+            'spagetti',
+            'escape-ways',
+            'mvc',
+            'mvvm',
+            'meet-knockoutjs',
+            'knockoutjs',
+            'standard-bindings'
+            );
 
             foreach ($slides as $slide) {
               echo '<div class="slide" id="' . $slide . '">';
@@ -54,7 +64,7 @@
 <![endif]-->
 
 <script src="src/prettify/prettify.js" onload="prettyPrint();" defer></script>
-<script src="js/utils.js"></script>
+<script src="scripts/utils.js"></script>
 <!--
 <script>
   var _gaq = _gaq || [];
