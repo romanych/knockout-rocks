@@ -1,0 +1,68 @@
+<header>Iterate items</header>
+<section>
+  <div data-bind="foreach: circles" class="circles">
+    <div class="circle">
+      <svg>
+        <text data-bind="text: name" x="10" y="20"/>
+        <circle
+                cx="105"
+                cy="105"
+                fill="transparent"
+                data-bind="
+                attr: {
+                  r: radius,
+                  stroke: color
+                },
+                click: randomizeColor"
+                />
+      </svg>
+    </div>
+  </div>
+  <pre class="prettyprint code-left">
+var Circle = function (name, color) {
+  var self = this;
+  self.name = ko.observable(name);
+  self.radius = ko.observable(50);
+  self.color = ko.observable(color);
+};
+
+var AppViewModel = function () {
+  var self = this;
+  self.circles = [
+    new Circle('Red', 'FF0000'),
+    new Circle('Green', '00FF00'),
+    new Circle('Blue', '0000FF')
+  ];
+}
+  </pre>
+  <pre class="prettyprint code-right">
+&lt;div data-bind="foreach: circles"&gt;
+  &lt;circle...
+&lt;/div&gt;
+  </pre>
+</section>
+<script defer>
+  (function () {
+    var Circle = function (name, color) {
+      var self = this;
+      self.name = ko.observable(name);
+      self.radius = ko.observable(50);
+      self.color = ko.observable(color);
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      }
+    };
+
+    var AppViewModel = function () {
+      var self = this;
+      self.circles = ko.observableArray([
+        new Circle('Red', 'FF0000'),
+        new Circle('Green', '00FF00'),
+        new Circle('Blue', '0000FF')
+      ]);
+    }
+
+    ko.applyBindings(new AppViewModel(), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

@@ -38,3 +38,25 @@
     width: 44%;
     float: right;
 }
+
+.circles {
+    overflow: hidden;
+}
+
+.circles .circle {
+    float: left;
+    width: 220px;
+}
+
+a.action {
+    float: right;
+    font-size: 80%;
+    color: #00c;
+    border-bottom: 1px dashed #00c;
+    visibility: hidden;
+    margin-right: 30px;
+}
+
+.circle:hover a.action {
+    visibility: visible;
+}

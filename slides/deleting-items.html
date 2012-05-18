@@ -1,0 +1,72 @@
+<header>Handling delete action</header>
+<section>
+  <div data-bind="foreach: circles" class="circles">
+    <div class="circle">
+
+      <svg>
+        <text data-bind="text: name" x="10" y="20"/>
+        <circle
+                cx="105"
+                cy="105"
+                fill="transparent"
+                data-bind="
+                attr: {
+                  r: radius,
+                  stroke: color
+                },
+                click: randomizeColor"
+                />
+      </svg>
+      <a href="#delete" data-bind="click: $parent.delete" class="action">Delete</a>
+    </div>
+  </div>
+  <pre class="prettyprint code-left">
+var AppViewModel = function () {
+  //...
+
+  <b>self.delete = function(circle) {
+    if (confirm('Realy?')) {
+    self.circles.remove(circle);
+    }
+    }</b>
+}
+  </pre>
+  <pre class="prettyprint code-right">
+&lt;div data-bind="foreach: circles"&gt;
+ &lt;a href="#"
+  data-bind="click: <b>$parent.delete</b>"&gt;
+   Delete&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+</section>
+<script defer>
+  (function () {
+    var Circle = function (name, color) {
+      var self = this;
+      self.name = ko.observable(name);
+      self.radius = ko.observable(50);
+      self.color = ko.observable(color);
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      }
+    };
+
+    var AppViewModel = function () {
+      var self = this;
+      self.circles = ko.observableArray([
+        new Circle('Red', 'FF0000'),
+        new Circle('Green', '00FF00'),
+        new Circle('Blue', '0000FF')
+      ]);
+
+      self.delete = function (circle) {
+        if (confirm('Realy?')) {
+          self.circles.remove(circle);
+        }
+      }
+    }
+
+    ko.applyBindings(new AppViewModel(), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

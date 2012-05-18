@@ -1,0 +1,83 @@
+<header>Observable arrays</header>
+<section>
+  <div data-bind="foreach: circles" class="circles">
+    <div class="circle">
+      <svg>
+        <text data-bind="text: name" x="10" y="20"/>
+        <circle
+                cx="105"
+                cy="105"
+                fill="transparent"
+                data-bind="
+                attr: {
+                  r: radius,
+                  stroke: color
+                },
+                click: randomizeColor"
+                />
+      </svg>
+    </div>
+  </div>
+  <div>
+  <button data-bind="click: addNewCircle">Add new circle</button>
+  <button data-bind="click: removeFirstCircle">Remove first circle</button>
+
+  </div>
+  <pre class="prettyprint code-left">
+var AppViewModel = function () {
+  var self = this;
+  self.circles = <b>ko.observableArray</b>([
+    new Circle('Red', 'FF0000'),
+    new Circle('Green', '00FF00'),
+    new Circle('Blue', '0000FF')
+  ]);
+
+  <b>self.addNewCircle = function() {
+   var c = random_color();
+   self.circles.push(new Circle(c,c));
+  }</b>
+}
+  </pre>
+  <pre class="prettyprint code-right">
+&lt;div data-bind="foreach: circles"&gt;
+  &lt;circle...
+&lt;/div&gt;
+&lt;button
+  data-bind="<b>click: addNewCircle</b>"&gt;
+    Add new circle&lt;/button&gt;
+  </pre>
+</section>
+<script defer>
+  (function () {
+    var Circle = function (name, color) {
+      var self = this;
+      self.name = ko.observable(name);
+      self.radius = ko.observable(50);
+      self.color = ko.observable(color);
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      }
+    };
+
+    var AppViewModel = function () {
+      var self = this;
+      self.circles = ko.observableArray([
+        new Circle('Red', 'FF0000'),
+        new Circle('Green', '00FF00'),
+        new Circle('Blue', '0000FF')
+      ]);
+
+      self.addNewCircle = function() {
+        var c = random_color();
+        self.circles.push(new Circle(c, c));
+      };
+
+        self.removeFirstCircle = function() {
+          self.circles.shift();
+        }
+    }
+
+    ko.applyBindings(new AppViewModel(), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

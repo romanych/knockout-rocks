@@ -12,6 +12,10 @@
   <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/ko.css" rel="stylesheet" type="text/css" media="screen"/>
   <script src="scripts/knockout-latest.js"></script>
+  <script src="scripts/color-picker/jscolor.js"></script>
+  <script>
+    jscolor.binding = false;
+  </script>
 </head>
 <body>
 <div id="flex-container">
@@ -44,7 +48,13 @@
             'mvvm',
             'meet-knockoutjs',
             'knockoutjs',
-            'standard-bindings'
+            'observables',
+            'standard-bindings',
+            'custom-bindings',
+            'foreach-binding',
+            'observable-array',
+            'deleting-items',
+            'editing-items'
             );
 
             foreach ($slides as $slide) {

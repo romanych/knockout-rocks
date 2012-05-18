@@ -1,0 +1,64 @@
+<header>Observable, computed observable</header>
+<section>
+  <div class="circle">
+    <svg>
+      <circle
+              cx="105"
+              cy="105"
+              fill="transparent"
+              stroke="red"
+              data-bind="
+                    attr: {
+                        r: radius
+                        }
+                    "
+              />
+    </svg>
+    <div class="controls">
+      Radius:
+      <input type="range" min="10" max="100" step="1" data-bind="value: radius"/>
+      <label data-bind="text: radiusInfo" style="font-size: 200%; font-weight: bold;"></label>
+
+      <h2>This is bad style &mdash; meet JavaScript in bindings:</h2>
+      <pre class="prettyprint">
+&lt;label data-bind="text: radius() + 'px'"&gt;&lt;/label&gt;
+</pre>
+      <h2>This is good style &mdash; meet computed observables:</h2>
+      <pre class="prettyprint">
+&lt;label data-bind="text: radiusInfo"&gt;&lt;/label&gt;
+</pre>
+<pre class="prettyprint">
+var ViewModel = function () {
+  var self = this;
+  self.radius = ko.observable(50);
+
+  self.radiusInfo = ko.computed(function () {
+    return self.radius() + 'px';
+  });
+};
+
+ko.applyBindings(new ViewModel());
+
+</pre>
+
+    </div>
+  </div>
+</section>
+<script defer>
+  (function () {
+    var ViewModel = function (name) {
+      var self = this;
+      self.radius = ko.observable(50);
+
+      self.radiusInfo = ko.computed(function () {
+        return self.radius() + 'px';
+      });
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      }
+    };
+
+    ko.applyBindings(new ViewModel('Best interactive circle'), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

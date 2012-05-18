@@ -1,4 +1,4 @@
-<header>Bindings</header>
+<header>Standard bindings</header>
 <section>
   <div class="circle">
     <svg>
@@ -19,6 +19,7 @@
                     "
               />
     </svg>
+
     <div class="controls">
       Name:
       <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown'"/><br/>
@@ -31,7 +32,7 @@
       <input type="range" min="10" max="100" step="1" data-bind="value: radius"/>
       <label data-bind="text: radius() + 'px'"></label>
       <pre class="prettyprint">
-&lt;label data-bind="text: radius() + 'px'"&gt;&lt;/label&gt;
+&lt;label data-bind="text: radiusInfo"&gt;&lt;/label&gt;
 </pre>
       Color:
       <input type="text" data-bind="value: color"/><br/>
@@ -66,6 +67,10 @@
       self.color = ko.observable('red');
       self.showHelp = ko.observable(true);
       self.dash = ko.observable();
+
+      self.radiusInfo = ko.computed(function() {
+        return self.radius() + 'px';
+      })
 
       self.randomizeColor = function () {
         self.color(random_color());
