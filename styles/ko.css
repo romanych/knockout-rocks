@@ -70,3 +70,7 @@ ul.bullets li {
 ul.bullets.small li {
     line-height: 25px;
 }
+
+.ribbon { position: absolute; top: -1px; right: -1px; opacity: 0.9; }
+.ribbon:hover, .ribbon:focus, .ribbon:active { opacity: 1; }
+.ribbon img { display: block; border: 0; }

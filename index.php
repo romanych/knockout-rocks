@@ -14,7 +14,7 @@
   <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" media="screen"/>
   <script src="scripts/knockout-latest.js"></script>
   <script src="scripts/color-picker/jscolor.js"></script>
-  <script src="scripts/jquery-1.7.1.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script src="scripts/bootstrap.js"></script>
   <script src="scripts/bootstrap-modal.js"></script>
   <script>
@@ -113,7 +113,7 @@
 
   })
 </script>
-<!--
+
 <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28549963-3']);
@@ -126,7 +126,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
--->
+
 
 </body>
 </html>
