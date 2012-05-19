@@ -1,4 +1,4 @@
-<header>Edit item in popup</header>
+<header>Sending data to server</header>
 <section>
   <div data-bind="foreach: circles" class="circles">
     <div class="circle">
@@ -54,64 +54,32 @@
         <br/>
         Radius is <span data-bind="text: radius() + 'px'"></span><br/>
       </div>
+      <div data-bind="text: ko.toJSON($data)"></div>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn btn-primary" data-bind="click: $parent.endEdit">Done</a>
     </div>
   </div>
-    <pre class="prettyprint">
-&lt;div data-bind="<b>modal: editingItem</b>"&gt;
-  ...
-&lt;/div&gt;
-</pre>
-
 <pre class="prettyprint">
-ko.bindingHandlers['modal'] = {
-  init: function (element, valueAccessor) {
-    $(element).addClass('hide modal');
-    return ko.bindingHandlers['with'].init.apply(this, arguments);
-  },
-  update: function (element, valueAccessor) {
-    var value = ko.utils.unwrapObservable(valueAccessor());
-    var returnValue = ko.bindingHandlers['with'].update.apply(this, arguments);
-    $(element).modal(value ? 'show' : 'hide');
-    return returnValue;
-  }
-};
+&lt;input data-bind="value: ko.toJSON($data)" /&gt;
+&lt;div data-bind="text: ko.toJSON($data)"&gt;&lt;/div&gt;
+</pre>
+<pre class="prettyprint">
+var AppViewModel = function() {
+  // ...
+  self.endEdit = function() {
+    alert(ko.toJSON(self.editingCircle());
+    // send data to server
+    setTimeout(function() {
+      // after server communication
+      alert('Done');
+      self.editingCircle(undefined);
+    }, 1000);
+  };
+}
 </pre>
 </section>
 <script defer>
-  ko.bindingHandlers['modal'] = {
-    init:function (element, valueAccessor, allBindingsAccessor) {
-      var allBindings = allBindingsAccessor();
-      var $element = $(element).appendTo('body');
-      $element.addClass('hide modal');
-
-      if (allBindings.modalOptions) {
-        if (allBindings.modalOptions.beforeClose) {
-          $element.on('hide', function () {
-            return allBindings.modalOptions.beforeClose();
-          });
-        }
-      }
-
-      return ko.bindingHandlers['with'].init.apply(this, arguments);
-    },
-    update:function (element, valueAccessor) {
-      var value = ko.utils.unwrapObservable(valueAccessor());
-
-      var returnValue = ko.bindingHandlers['with'].update.apply(this, arguments);
-
-      if (value) {
-        $(element).modal('show');
-      } else {
-        $(element).modal('hide');
-      }
-
-      return returnValue;
-    }
-  };
-
   (function () {
     var Circle = function (name, color) {
       var self = this;
@@ -141,7 +109,12 @@ ko.bindingHandlers['modal'] = {
         self.editingCircle(circle);
       };
       self.endEdit = function () {
-        self.editingCircle(undefined);
+        alert(ko.toJSON(self.editingCircle()));
+        // send data to server
+        setTimeout(function() {
+          alert('Data saved')
+          self.editingCircle(undefined);
+        }, 1000);
       }
     }
 

@@ -60,6 +60,8 @@
             'deleting-items',
             'editing-items',
             'editing-items-popup',
+            'sending-data',
+            'receiving-data',
             'conclusion',
             'thank-you'
             );
@@ -113,7 +115,8 @@
 
   })
 </script>
-
+<?php
+if ($_SERVER['HTTP_HOST'] != 'localhost') { ?>
 <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28549963-3']);
@@ -126,7 +129,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-
+<?php } ?>
 
 </body>
 </html>
