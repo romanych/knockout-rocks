@@ -1,0 +1,150 @@
+<header>Edit item in popup</header>
+<section>
+  <div data-bind="foreach: circles" class="circles">
+    <div class="circle">
+      <svg>
+        <text data-bind="text: name" x="10" y="20"/>
+        <circle
+                cx="105"
+                cy="105"
+                fill="transparent"
+                data-bind="
+                attr: {
+                  r: radius,
+                  stroke: color
+                },
+                click: randomizeColor"
+                class="donotresize"
+                />
+      </svg>
+      <a href="#edit" data-bind="click: $parent.edit" class="action">Edit</a>
+    </div>
+  </div>
+  <div data-bind="modal: editingCircle" class="fade">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+
+      <h3>
+        Редактирование коктейля</h3>
+    </div>
+    <div class="modal-body circle">
+      <svg>
+        <text data-bind="text: name" x="10" y="20"/>
+        <circle
+                cx="105"
+                cy="105"
+                fill="transparent"
+                data-bind="
+                    attr: {
+                        r: radius,
+                        stroke: color
+                        },
+                        click: randomizeColor,
+                        event: { resize: setRadius }
+                    "
+                />
+      </svg>
+      <div class="controls">
+        Name:
+        <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown'"/><br/>
+        Radius:
+        <input type="range" min="10" max="100" step="1" data-bind="value: radius"/><br/>
+        Color:
+        <input type="text" data-bind="colorPicker: color"/><br/>
+        <br/>
+        Radius is <label data-bind="text: radius() + 'px'"></label><br/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary" data-bind="click: $parent.endEdit">Done</a>
+    </div>
+  </div>
+    <pre class="prettyprint">
+&lt;div data-bind="<b>modal: editingItem</b>"&gt;
+  ...
+&lt;/div&gt;
+</pre>
+
+<pre class="prettyprint">
+ko.bindingHandlers['modal'] = {
+  init: function (element, valueAccessor) {
+    $(element).addClass('hide modal');
+    return ko.bindingHandlers['with'].init.apply(this, arguments);
+  },
+  update: function (element, valueAccessor) {
+    var value = ko.utils.unwrapObservable(valueAccessor());
+    var returnValue = ko.bindingHandlers['with'].update.apply(this, arguments);
+    $(element).modal(value ? 'show' : 'hide');
+    return returnValue;
+  }
+};
+</pre>
+</section>
+<script defer>
+  ko.bindingHandlers['modal'] = {
+    init:function (element, valueAccessor, allBindingsAccessor) {
+      var allBindings = allBindingsAccessor();
+      var $element = $(element).appendTo('body');
+      $element.addClass('hide modal');
+
+      if (allBindings.modalOptions) {
+        if (allBindings.modalOptions.beforeClose) {
+          $element.on('hide', function () {
+            return allBindings.modalOptions.beforeClose();
+          });
+        }
+      }
+
+      return ko.bindingHandlers['with'].init.apply(this, arguments);
+    },
+    update:function (element, valueAccessor) {
+      var value = ko.utils.unwrapObservable(valueAccessor());
+
+      var returnValue = ko.bindingHandlers['with'].update.apply(this, arguments);
+
+      if (value) {
+        $(element).modal('show');
+      } else {
+        $(element).modal('hide');
+      }
+
+      return returnValue;
+    }
+  };
+
+  (function () {
+    var Circle = function (name, color) {
+      var self = this;
+      self.name = ko.observable(name);
+      self.radius = ko.observable(50);
+      self.color = ko.observable(color);
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      };
+
+      self.setRadius = function(c, e) {
+        self.radius(e.radius);
+      }
+    };
+
+    var AppViewModel = function () {
+      var self = this;
+      self.circles = ko.observableArray([
+        new Circle('Red', 'FF0000'),
+        new Circle('Green', '00FF00'),
+        new Circle('Blue', '0000FF')
+      ]);
+
+      self.editingCircle = ko.observable();
+      self.edit = function (circle) {
+        self.editingCircle(circle);
+      };
+      self.endEdit = function () {
+        self.editingCircle(undefined);
+      }
+    }
+
+    ko.applyBindings(new AppViewModel(), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

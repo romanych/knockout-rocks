@@ -13,7 +13,8 @@
                   r: radius,
                   stroke: color
                 },
-                click: randomizeColor"
+                click: randomizeColor,
+                event: { resize: setRadius}""
                 />
       </svg>
     </div>
@@ -57,6 +58,10 @@ var AppViewModel = function () {
 
       self.randomizeColor = function () {
         self.color(random_color());
+      };
+
+      self.setRadius = function(c, e) {
+        self.radius(e.radius);
       }
     };
 

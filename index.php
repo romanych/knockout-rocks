@@ -4,15 +4,19 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"/>
   <title>KnockoutJS presentation</title>
-  <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css"/>
+<!--  <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css"/>-->
   <link id="prettify-link" href="src/prettify/prettify.css" rel="stylesheet"/>
   <link href="styles/fonts.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/presentation.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/common.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/ko.css" rel="stylesheet" type="text/css" media="screen"/>
+  <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" media="screen"/>
   <script src="scripts/knockout-latest.js"></script>
   <script src="scripts/color-picker/jscolor.js"></script>
+  <script src="scripts/jquery-1.7.1.js"></script>
+  <script src="scripts/bootstrap.js"></script>
+  <script src="scripts/bootstrap-modal.js"></script>
   <script>
     jscolor.binding = false;
   </script>
@@ -24,7 +28,7 @@
     <button title="Jump to a random slide" id="slide-no">5</button>
     <button title="Next slide" id="nav-next" class="nav-next">&#8702;</button>
     <menu>
-      <button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>
+      <!--<button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>-->
       <button type="checkbox" data-command="notes" title="View Slide Notes">&#9999;</button>
       <button type="checkbox" data-command="source" title="View slide source">&#8635;</button>
       <button type="checkbox" data-command="help" title="View Help">?</button>
@@ -54,13 +58,16 @@
             'foreach-binding',
             'observable-array',
             'deleting-items',
-            'editing-items'
+            'editing-items',
+            'editing-items-popup',
+            'conclusion',
+            'thank-you'
             );
 
             foreach ($slides as $slide) {
-              echo '<div class="slide" id="' . $slide . '">';
-              include 'slides/' . $slide . '.html';
-              echo '</div>';
+            echo '<div class="slide" id="' . $slide . '">';
+            include 'slides/' . $slide . '.html';
+            echo '</div>';
             }
             ?>
   </div>
@@ -75,6 +82,37 @@
 
 <script src="src/prettify/prettify.js" onload="prettyPrint();" defer></script>
 <script src="scripts/utils.js"></script>
+<script defer>
+  $(function () {
+    $('circle').live('mousedown',
+        function () {
+          if ($(this).is('.donotresize')){
+            return;
+          }
+          var circle = this;
+          $(this).parent()
+            .unbind('mousemove')
+            .bind('mousemove', function(e) {
+                var cx = circle.getBBox().width / 2;
+                var $circle = $(circle);
+                var pos = $circle.offset();
+
+                var x = e.screenX - pos.left;
+                var r = Math.max(10, Math.abs(cx - x));
+
+                circle.setAttribute('r', r);
+                $circle.trigger({type: 'resize', radius: r});
+                if (typeof(circle.onresize) == 'function') {
+                  circle.onresize(r);
+                }
+              })
+              .bind('mouseup', function() {
+                $(this).unbind('mousemove');
+            });
+      })
+
+  })
+</script>
 <!--
 <script>
   var _gaq = _gaq || [];
@@ -89,5 +127,6 @@
   })();
 </script>
 -->
+
 </body>
 </html>

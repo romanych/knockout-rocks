@@ -11,7 +11,10 @@
                         r: radius,
                         stroke: color
                         },
-                        click: randomizeColor
+                        click: randomizeColor,
+                        event: {
+                          resize: setRadius
+                        }
                     "
               />
     </svg>
@@ -21,7 +24,7 @@
       Color:
       <input type="text" data-bind="value: color"/><br/>
       <br/>
-      Radius is <label data-bind="text: radius() + 'px'"></label>
+      Radius is <span data-bind="text: radius() + 'px'"></span>
     </div>
   </div>
 <pre class="code-left prettyprint" style="width: 40%;">
@@ -29,20 +32,23 @@ var viewModel = {
   radius : ko.observable(50),
   color : ko.observable('red'),
   randomizeColor : function () {
-    self.color(random_color());
+    this.color(random_color());
+  },
+  setRadius = function(c, e) {
+    this.radius(e.radius);
   }
 };
 
 ko.applyBindings(viewModel);
 </pre>
-<pre class="code-right prettyprint" style="width: 48%;">
+<pre class="code-right prettyprint" style="width: 54%;">
 &lt;circle cx="105"cy="105" fill="transparent"
-  <b>data-bind="
-    attr: {
+  <b>data-bind="attr: {
         r: radius,
         stroke: color
     },
-    click: randomizeColor"</b>/&gt;
+    click: randomizeColor,
+    event: {resize: setRadius}"</b>/&gt;
 
 Radius:
 &lt;input type="range" min="10" max="100"
@@ -50,7 +56,7 @@ Radius:
 Color:
 &lt;input type="text" <b>data-bind="value: color"</b>/&gt;
 Radius is
-&lt;label data-bind="text: radius()+'px'"&gt;&lt;/label&gt;
+&lt;span data-bind="text: radius()+'px'"&gt;&lt;/span&gt;
 </pre>
 </section>
 <script defer>
@@ -62,6 +68,10 @@ Radius is
 
       self.randomizeColor = function () {
         self.color(random_color());
+      };
+
+      self.setRadius = function(circle, e) {
+        self.radius(e.radius);
       }
     };
 

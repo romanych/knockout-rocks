@@ -11,7 +11,8 @@
                         r: radius,
                         stroke: color
                         },
-                        click: randomizeColor
+                        click: randomizeColor,
+                        event: { resize: setRadius }
                     "
               />
     </svg>
@@ -68,7 +69,11 @@ ko.bindingHandlers['colorPicker'] = {
 
       self.randomizeColor = function () {
         self.color(random_color());
-      }
+      };
+
+      self.setRadius = function(circle, e) {
+        self.radius(e.radius);
+      };
     };
 
     ko.applyBindings(new ViewModel(), document.getElementById('<?php echo $slide ?>'));

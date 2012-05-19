@@ -30,12 +30,12 @@
 }
 
 .code-left {
-    width: 44%;
+    width: 46%;
     float: left;
 }
 
 .code-right {
-    width: 44%;
+    width: 46%;
     float: right;
 }
 
@@ -53,10 +53,20 @@ a.action {
     font-size: 80%;
     color: #00c;
     border-bottom: 1px dashed #00c;
-    visibility: hidden;
+    /*visibility: hidden;*/
     margin-right: 30px;
 }
 
+/*
 .circle:hover a.action {
     visibility: visible;
+}*/
+
+
+ul.bullets li {
+    line-height: 35px;
+}
+
+ul.bullets.small li {
+    line-height: 25px;
 }

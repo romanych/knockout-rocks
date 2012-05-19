@@ -1,0 +1,119 @@
+<header>Handling edit action</header>
+<section>
+  <div data-bind="foreach: circles" class="circles">
+    <div class="circle">
+      <svg>
+        <text data-bind="text: name" x="10" y="20"/>
+        <circle
+                cx="105"
+                cy="105"
+                fill="transparent"
+                data-bind="
+                attr: {
+                  r: radius,
+                  stroke: color
+                },
+                click: randomizeColor"
+                class="donotresize"
+                />
+      </svg>
+      <a href="#edit" data-bind="click: $parent.edit" class="action">Edit</a>
+    </div>
+  </div>
+  <div data-bind="with: editingCircle" class="circle">
+    <svg>
+      <text data-bind="text: name" x="10" y="20"/>
+      <circle
+              cx="105"
+              cy="105"
+              fill="transparent"
+              data-bind="
+                    attr: {
+                        r: radius,
+                        stroke: color
+                        },
+                        click: randomizeColor,
+                        event: { resize: setRadius }
+                    "
+              />
+    </svg>
+    <div class="controls">
+      Name:
+      <input type="text" data-bind="value: name, valueUpdate: 'afterkeydown'"/><br/>
+      Radius:
+      <input type="range" min="10" max="100" step="1" data-bind="value: radius"/><br/>
+      Color:
+      <input type="text" data-bind="colorPicker: color"/><br/>
+      <br/>
+      Radius is <label data-bind="text: radius() + 'px'"></label><br/>
+      <button data-bind="click: $parent.endEdit">Done</button>
+    </div>
+  </div>
+  <pre class="prettyprint code-left">
+var AppViewModel = function () {
+ //...
+
+ <b>self.editingCircle = ko.observable();</b>
+
+ self.edit = function (circle) {
+   <b>self.editingCircle(circle);</b>
+ };
+
+ self.endEdit = function () {
+   <b>self.editingCircle(undefined);</b>
+ };
+}
+  </pre>
+  <pre class="prettyprint code-right">
+&lt;div data-bind="foreach: circles"&gt;
+ &lt;a href="#"
+  data-bind="click: <b>$parent.edit</b>"&gt;
+   Edit&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div data-bind="<b>with: editingItem</b>"&gt;
+ &lt;input data-bind="value: name" /&gt;
+
+ &lt;button
+   data-bind="click: $parent.endEdit"&gt;
+   Done&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+</section>
+<script defer>
+  (function () {
+    var Circle = function (name, color) {
+      var self = this;
+      self.name = ko.observable(name);
+      self.radius = ko.observable(50);
+      self.color = ko.observable(color);
+
+      self.randomizeColor = function () {
+        self.color(random_color());
+      };
+
+      self.setRadius = function(c, e) {
+        self.radius(e.radius);
+      };
+    };
+
+    var AppViewModel = function () {
+      var self = this;
+      self.circles = ko.observableArray([
+        new Circle('Red', 'FF0000'),
+        new Circle('Green', '00FF00'),
+        new Circle('Blue', '0000FF')
+      ]);
+
+      self.editingCircle = ko.observable();
+      self.edit = function (circle) {
+        self.editingCircle(circle);
+      };
+      self.endEdit = function () {
+        self.editingCircle(undefined);
+      }
+    }
+
+    ko.applyBindings(new AppViewModel(), document.getElementById('<?php echo $slide ?>'));
+  })();
+</script>

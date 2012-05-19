@@ -2,7 +2,6 @@
 <section>
   <div data-bind="foreach: circles" class="circles">
     <div class="circle">
-
       <svg>
         <text data-bind="text: name" x="10" y="20"/>
         <circle
@@ -14,7 +13,8 @@
                   r: radius,
                   stroke: color
                 },
-                click: randomizeColor"
+                click: randomizeColor,
+                event: { resize: setRadius}""
                 />
       </svg>
       <a href="#delete" data-bind="click: $parent.delete" class="action">Delete</a>
@@ -28,7 +28,7 @@ var AppViewModel = function () {
     if (confirm('Realy?')) {
     self.circles.remove(circle);
     }
-    }</b>
+  }</b>
 }
   </pre>
   <pre class="prettyprint code-right">
@@ -49,7 +49,11 @@ var AppViewModel = function () {
 
       self.randomizeColor = function () {
         self.color(random_color());
-      }
+      };
+
+      self.setRadius = function(c, e) {
+        self.radius(e.radius);
+      };
     };
 
     var AppViewModel = function () {

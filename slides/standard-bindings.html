@@ -15,7 +15,8 @@
                          style: {
                         'stroke-dasharray': dash
                         },
-                        click: randomizeColor
+                        click: randomizeColor,
+                        event: { resize: setRadius }
                     "
               />
     </svg>
@@ -30,21 +31,19 @@
 
       Radius:
       <input type="range" min="10" max="100" step="1" data-bind="value: radius"/>
-      <label data-bind="text: radius() + 'px'"></label>
+      <span data-bind="text: radiusInfo, style: { 'font-size': radiusInfo }"></span>
       <pre class="prettyprint">
-&lt;label data-bind="text: radiusInfo"&gt;&lt;/label&gt;
+&lt;label data-bind="text: radiusInfo,
+          style: {'font-size': radiusInfo}"&gt;&lt;/label&gt;
 </pre>
-      Color:
-      <input type="text" data-bind="value: color"/><br/>
       Dash: <select data-bind="value: dash, options: [2, 4, 6, 8], optionsCaption: 'No dashes'"></select>
         <pre class="prettyprint">
-&lt;select data-bind="
-          value: dash,
+&lt;select data-bind="value: dash,
           options: [2, 4, 6, 8],
           optionsCaption: 'No dashes'"&gt;&lt;/select&gt;
 </pre>
       <br/>
-      <label><input type="checkbox" data-bind="checked: showHelp"/>Show help</label>
+      <label class="checkbox"><input type="checkbox" data-bind="checked: showHelp"/>Show help</label>
 
       <div data-bind="visible: showHelp">
         Change name, radius or color in corresponding fields<br/>
@@ -70,7 +69,11 @@
 
       self.radiusInfo = ko.computed(function() {
         return self.radius() + 'px';
-      })
+      });
+
+      self.setRadius = function(circle, e) {
+        self.radius(e.radius);
+      }
 
       self.randomizeColor = function () {
         self.color(random_color());
