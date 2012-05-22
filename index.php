@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"/>
   <title>KnockoutJS presentation</title>
-<!--  <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css"/>-->
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"/>
+
   <link id="prettify-link" href="src/prettify/prettify.css" rel="stylesheet"/>
-  <link href="styles/fonts.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/presentation.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/common.css" rel="stylesheet" type="text/css" media="screen"/>
   <link href="styles/default.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -35,7 +35,7 @@
     </menu>
   </nav>
   <div class="slides">
-    <div id="presentation-counter">Загрузка...</div>
+    <div id="presentation-counter">Loading...</div>
     <?php
             $slides = array(
             'landing-slide',
@@ -63,6 +63,8 @@
             'sending-data',
             'receiving-data',
             'conclusion',
+            'complexities',
+            'further-reading',
             'thank-you'
             );
 
@@ -120,8 +122,9 @@ if ($_SERVER['HTTP_HOST'] != 'localhost') { ?>
 <script>
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-28549963-3']);
+  _gaq.push(['_setSiteSpeedSampleRate', 100]);
   _gaq.push(['_trackPageview']);
-  _gaq.push(['_trackPageLoadTime']);
+
 
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

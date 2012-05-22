@@ -1,3 +1,5 @@
+window._gaq = window._gaq || [];
+
 // bind polyfill
 if (!Function.prototype.bind) {
   Function.prototype.bind = function (oThis) {
@@ -304,7 +306,7 @@ if (!Function.prototype.bind) {
       }
       removeClass(this._buildList.shift(), 'to-build');
       return true;
-    },
+    }
   };
 
   //
@@ -326,6 +328,7 @@ if (!Function.prototype.bind) {
              'here from an old external link it\'s very likely you will land to the wrong slide');
       this.current = "landing-slide";
     }
+
     var _t = this;
     doc.addEventListener('keydown',
         function(e) { _t.handleKeys(e); }, false);
@@ -402,6 +405,7 @@ if (!Function.prototype.bind) {
       } else {
         window.location.hash = this.current;
       }
+        _gaq.push(['_trackPageview', this.current]);
       for (var x = currentIndex; x < currentIndex + 7; x++) {
         if (this._slides[x-4]) {
           this._slides[x-4].setState(x-currentIndex);
